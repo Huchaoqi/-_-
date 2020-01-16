@@ -1,0 +1,92 @@
+<template>
+  <view>
+    <!-- 轮播图 -->
+    <swiper circular indicator-dots autoplay>
+      <swiper-item wx:for="{{swiperList}}" wx:key="index">
+        <navigator url="{{item.navigator_url}}" open-type="{{item.open_type}}">
+          <image src="{{item.image_src}}" />
+        </navigator>
+      </swiper-item>
+    </swiper>
+
+    <!-- 分类区域 -->
+    <view class="cates">
+      <block wx:for="{{cateItems}}" wx:key="index">
+        <navigator
+          url="/pages/tabs/cates"
+          open-type="{{item.open_type}}"
+          wx:if="{{ item.navigator_url !== undefined}}"
+          hover-class='none'
+        >
+          <image src="{{item.image_src}}" />
+        </navigator>
+        <image src="{{item.image_src}}" wx:else />
+      </block>
+    </view>
+
+    <!-- 楼层区域 -->
+    <view class="floor_container">
+   <view class="floor_item" wx:for="{{floorData}}" wx:key="index">
+      <!-- 楼层的标题 -->
+       <image class="floor_item_title" src="{{item.floor_title.image_src}}"/>
+        <!-- 楼层的图片区 -->
+        <view class="floor_img_box">
+           <image class="floor_item_pic" wx:for="{{item.product_list}}"  wx:key="index" style="width:{{item.image_width}}rpx" src="{{item.image_src}}"  @tap="goGoodsList({{item.navigator_url}})"/>
+        </view>
+   </view>
+    </view>
+  </view>
+</template>
+<style lang="less">
+swiper {
+  height: 350rpx;
+  navigator,
+  image {
+    height: 100%;
+    width: 750rpx;
+  }
+}
+.cates {
+  display: flex;
+  justify-content: space-around;
+  margin: 40rpx 0;
+  image {
+    width: 128rpx;
+    height: 140rpx;
+  }
+}
+.floor_container{
+
+  .floor_item{
+   .floor_item_title{
+      height: 50rpx;
+      width:640rpx;
+      display: block;
+   }
+  }
+}
+.floor_img_box{
+  .floor_item_pic{
+    float: left;
+    height: 190rpx;
+    margin: 8rpx;
+    margin-top: 0;
+    &:nth-child(1){
+      height: 390rpx;
+    }
+  }
+}
+</style>
+
+<script>
+import wepy from 'wepy';
+//  导入外界的 mixin 文件并接受
+  import  mix from '@/mixins/tabs/home.js'
+
+export default class extends wepy.page {
+  //  把导入的mix 对象挂载到mixins 这个数据中就行
+   mixins = [mix]
+  
+
+}
+</script>

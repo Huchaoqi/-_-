@@ -1,0 +1,31 @@
+
+
+<template>
+  <view>
+    <!-- 侧边栏导航条 -->
+    <scroll-view class="left" scroll-y  style="height:{{wh}}px">
+      <van-sidebar active-key="{{ activeKey }}" bind:change="onChange">
+        <van-sidebar-item
+          title="{{item.cat_name}}"
+          wx:for="{{cateList}}"
+          wx:key="index"
+        />
+      </van-sidebar>
+    </scroll-view>
+  </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+import mix from '@/mixins/tabs/cates.js';
+
+export default class extends wepy.page {
+  mixins = [mix];
+}
+</script>
+
+<style lang="less">
+   .left{
+     width: 85px;
+   }
+</style>
